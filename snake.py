@@ -1,15 +1,14 @@
 import pygame
 import random
 
-
-
-
+# Saves information about updates for X and Y values for one tick of the game depending on direction
 class Direction:
     UP = [0,-1]
     DOWN = [0,1]
     LEFT = [-1,0]
     RIGHT = [1,0]
 
+#Control for the snake
 class Snake:
     def __init__(self,x,y):
         self.snakePositions = [Position(x, y)]
@@ -17,8 +16,7 @@ class Snake:
         self.direction = Direction.RIGHT
 
     def move(self, food):
-
-        new = Position(self.snakePositions[0].x+self.direction[0], self.snakePositions[0].y+self.direction[1])
+        new = Position(self.snakePositions[0].x+self.direction[0], self.snakePositions[0].y+self.direction[1]) # Calculates the next position based on the snakes current position
         self.snakePositions.insert(0, new)
         if new.equals(food.foodPosition):
             food.newFood(self)
@@ -87,8 +85,9 @@ def drawFood(food):
 gameSnake = Snake(10, 10)
 food = Food(gameSnake)
 
-LOGIC_UPDATE_INTERVAL = 1000 // 6
+LOGIC_UPDATE_INTERVAL = 1000 // 6 #Change second number to adjust game speed
 last_update_time = pygame.time.get_ticks()
+
 
 while running:
     for event in pygame.event.get():
